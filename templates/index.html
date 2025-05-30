@@ -1,0 +1,93 @@
+<!doctype html>
+
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("new_session_form").addEventListener("submit", async function (event) {
+                event.preventDefault();  // Prevent page reload
+
+                const form = event.target;
+                const sessionId = form.session_name.value;
+                try {
+                    const response = await fetch(`/s/${sessionId}`, {
+                        method: "PUT"
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+
+                    const questionSession = await response.json();
+                    showNewSessionDetails(questionSession);
+                } catch (error) {
+                    console.error("Error:", error);
+                    document.getElementById("status").textContent = `Error saving session: ${error}`;
+                }
+            });
+
+            // Check for any error strings
+            const params = new URLSearchParams(window.location.search);
+            const errorValue = params.get("error");
+
+            if (errorValue) {
+                document.getElementById("error_message").style.display = "";
+                document.getElementById("error_message").textContent = errorValue;
+            }
+        });
+
+        function showNewSessionDetails(questionSession) {
+            document.getElementById("new_session_info").style.display = "";
+            let urlSpan = document.getElementById("new_session_url_span");
+            while (urlSpan.firstChild) {
+                urlSpan.removeChild(urlSpan.firstChild);
+            }
+            let sessionURL = document.createElement("a");
+            sessionURL.href = `s/${questionSession._id}`;
+            sessionURL.textContent = questionSession.name;
+            urlSpan.appendChild(sessionURL);
+
+            let adminURLSpan = document.getElementById("new_session_admin_url_span");
+            while (adminURLSpan.firstChild) {
+                adminURLSpan.removeChild(adminURLSpan.firstChild);
+            }
+            let sessionAdminURL = document.createElement("a");
+            sessionAdminURL.href = `s/${questionSession._id}/${questionSession.admin_password}`;
+            sessionAdminURL.textContent = questionSession.name;
+            adminURLSpan.appendChild(sessionAdminURL);
+        }
+    </script>
+    <title>{{ instance_name }}</title>
+</head>
+
+<body>
+    <div class="main">
+        {{ header | safe }}
+
+        <div class="content">
+            <h2>Create New Session</h2>
+
+            <form id="new_session_form">
+                <div class="question-input">
+                    <input id="session_name" type="text" name="session_name" placeholder="New session name" required>
+                    <input type="submit" value="Create">
+                </div>
+            </form>
+
+            <div id="error_message" class="warning" style="display:none"></div>
+
+            <div style="display: none;" class="new_session_info" id="new_session_info">
+                <p>New Session Created</p>
+                <p>Please note the admin URL otherwise you will need a server administrator to retrieve it for you.</p>
+                <ul>
+                    <li>New Session: <span id="new_session_url_span"></span></li>
+                    <li>Admin Page: <span id="new_session_admin_url_span"></span></li>
+                </ul>
+                <div id="status"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

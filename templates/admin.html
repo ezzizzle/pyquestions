@@ -1,0 +1,40 @@
+<!doctype html>
+
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>{{ instance_name }}</title>
+</head>
+
+<body>
+    <div class="main">
+        {{ header | safe }}
+
+        <div class="content">
+            <div class="flex">
+                <h1>Current Sessions</h1>
+            </div>
+
+            <div class="session_links" id="current_sessions">
+                {% for question_session in question_sessions %}
+                <p>
+                    <a href="/s/{{ question_session._id }}">{{question_session.name}}</a>
+                    (<a href="/s/{{ question_session._id }}/{{ question_session.admin_password }}">Admin</a>)
+                </p>
+                {% endfor %}
+            </div>
+
+            <h1>Closed Sessions</h1>
+            <div class="session_links" id="closed_sessions">
+                {% for question_session in closed_sessions %}
+                <p>
+                    <a href="/s/{{ question_session._id }}">{{question_session.name}}</a>
+                    (<a href="/s/{{ question_session._id }}/{{ question_session.admin_password }}">Admin</a>)
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>{{ instance_name }}</title>
+</head>
+
+<body>
+    <div class="main">
+        {{ header | safe }}
+
+        <div class="content">
+            <h2>Help</h2>
+
+            <h3 id="creating-a-session">Creating a Session</h3>
+            <p>Anybody can create a new session from the homepage.</p>
+            <img class="centered" alt="Create a new session screenshot"
+                src="{{ url_for('static', filename='screenshots/Session-Create.png') }}">
+
+            <p>
+                The user is presented with a link to the session and a link to the admin page for the session.
+                The admin page is only secured with a random string.
+                Anyone with the link to the admin page will be able to <a href="#moderating">moderate</a> a session.
+            </p>
+            <p class="warning">
+                It's important for the user who creates the session to note the URL for the admin page.
+                If this is lost then an overall server admin will need to retrieve it from the Server Admin page.
+            </p>
+            </p>
+            <img class="centered" alt="Session created"
+                src="{{ url_for('static', filename='screenshots/Session-Created.png') }}">
+
+            <h3>Asking a Question</h3>
+            <p>
+                Anyone with a link to the session can ask a question.
+                Questions are anonymous.
+                Users can also add upvotes to a question.
+                Users can only upvote a question once, but this is only enforced through a session cookie.
+                There's nothing stopping a user from using multiple browsers or incognito tabs to vote multiple times.
+                Hopefully people can be trusted.
+            </p>
+            <img class="centered" alt="Session questions"
+                src="{{ url_for('static', filename='screenshots/Session-Questions.png') }}">
+
+            <h3 id="moderating">Moderating a Session</h3>
+            <p>A user can moderate a session in the following ways:</p>
+            <ul>
+                <li>Hide a question once it's been answered</li>
+                <li>Unhide a question if it needs to come back</li>
+                <li>Close a session so no more questions can be asked</li>
+                <li>Export the list of questions</li>
+                <li>Delete a session when it has concluded</li>
+            </ul>
+            <p class="warning">
+                Anyone who has the session admin URL can moderate a session.
+            </p>
+            <img class="centered" alt="Session moderation"
+                src="{{ url_for('static', filename='screenshots/Session-Admin.png') }}">
+
+            <h4>Closing a Session</h4>
+            <p>
+                Users will see a message if the session is closed and will not be able to add any more questions.
+                They will still be able to add upvotes.
+            </p>
+            <img class="centered" alt="Session closed"
+                src="{{ url_for('static', filename='screenshots/Session-Closed.png') }}">
+
+            <h4>Deleting a Session</h4>
+            <p>
+                Once a session is deleted no one will have access to it or its content.
+                You need to export the questions before deleting the session if you want to keep the questions.
+            </p>
+
+            <h2>Server Admin</h2>
+            <p>
+                Server admins can see all current sessions, including those that have been closed.
+                Server admins can provide links to any session, including admin links.
+            </p>
+            <div class="warning">
+                <div>
+                    <div>Anyone who has the session admin URL can moderate a session.</div>
+                    <div>This means server admins can administer any current session.</div>
+                </div>
+            </div>
+            <img class="centered" alt="Server Admin" src="{{ url_for('static', filename='screenshots/Admin.png') }}">
+        </div>
+    </div>
+</body>
+
+</html>

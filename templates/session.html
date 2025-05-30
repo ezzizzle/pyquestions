@@ -1,0 +1,64 @@
+<!doctype html>
+
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/session.js') }}"></script>
+    {% if is_admin_page %}
+    <script src="{{ url_for('static', filename='js/session_admin.js') }}"></script>
+    {% endif %}
+    <script type="text/javascript" charset="utf-8">
+        // I know this is bad but I don't care
+        let isAdminPage = {{ 'true' if is_admin_page else 'false' }};
+        let globalSessionId = "{{ question_session._id }}";
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("new_question_form").addEventListener("submit", function (event) {
+                event.preventDefault();
+                submitQuestion();
+            });
+        });
+    </script>
+    <title>{{ instance_name }} | {{ question_session.name }}</title>
+</head>
+
+<body>
+    <div class="main">
+        {{ header | safe }}
+
+        <div class="content">
+            <div class="session_header">
+                <div id="session_status" class="session_status info" style="display: none;">
+                    {% if not question_session.is_accepting_questions %}
+                    This session has been closed for questions.
+                    {% endif %}
+                </div>
+                <div class="session_form_container">
+                    <form id="new_question_form">
+                        <div class="question-input">
+                            <input id="question-text" type="text" placeholder="Type your question">
+                            <input type="submit" value="Ask">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% if is_admin_page %}
+            <div class="export-options">
+                <button class="styled-button" onclick="exportQuestions()">
+                    📦 Export Questions
+                </button>
+                <button id="close_session_button" class="styled-button destructive" onclick="toggleSessionState()">
+                    🔒 Close Session
+                </button>
+                <button class="styled-button destructive" onclick="deleteSession()">
+                    🔨 Delete Session
+                </button>
+            </div>
+            {% endif %}
+            <div class="questions" id="question_list"></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+services:
+  mongo:
+    image: mongo:7
+    # Have the containers restart
+    # restart: always
+    volumes:
+      - ./data/mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+
+  app:
+    build: .
+    depends_on:
+     - mongo
+    # Have the containers restart
+    # restart: always
+    # Mount your own logo
+    # volumes:
+    #   - ./mylogo.png:/usr/src/app/static/images/logo.png
+    volumes:
+      - ./static:/usr/src/app/static/
+      - ./templates:/usr/src/app/templates/
+    ports:
+      - 8000:8000
+    environment:
+      PYQUESTIONS_BASE_URL: $PYQUESTIONS_BASE_URL
+      PYQUESTIONS_MONGO_URI: mongodb://$MONGO_INITDB_ROOT_USERNAME:$MONGO_INITDB_ROOT_PASSWORD@mongo:27017/pyqa?authSource=admin
+      PYQUESTIONS_ADMIN_PASSWORD: $PYQUESTIONS_ADMIN_PASSWORD
+      PYQUESTIONS_INSTANCE_NAME: "${PYQUESTIONS_INSTANCE_NAME:-PyQuestions}"
+      PYQA_WORKER_COUNT: "${PYQA_WORKER_COUNT:-1}"
+      PYQA_DEBUG: "${PYQA_DEBUG:-}"

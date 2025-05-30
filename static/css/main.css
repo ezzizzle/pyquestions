@@ -1,0 +1,218 @@
+body {
+    background-color: #333;
+    color: white;
+    font-family: -apple-system, system-ui, Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: lightskyblue;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.header {
+    padding: 1em;
+    position: sticky;
+    top: 0;
+    background-color: #222;
+    height: 80px;
+}
+
+.header .details {
+    display: flex;
+    align-items: center;
+}
+
+.header .details img {
+    margin-right: 20px;
+    border-radius: 10px;
+    max-width: 80px;
+    max-height: 80px;
+}
+
+#help_url {
+    align-self: start;
+    margin-left: auto;
+    text-decoration: none;
+}
+
+.main {
+    background-color: #222;
+    max-width: 800px;
+    margin: auto;
+    justify-content: space-around;
+    /* overflow: hidden; */
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.content {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+}
+
+.content img {
+    max-width: 100%;
+}
+
+.centered {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.info {
+    display: flex;
+    background-color: rgb(58, 131, 248);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.info::before {
+    content: "🔔";
+    display: block;
+    margin-right: 10px;
+}
+
+.warning {
+    display: flex;
+    background-color: rgb(255, 171, 3);
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.warning a {
+    color: black;
+}
+
+.warning::before {
+    content: "⚠️";
+    display: block;
+    margin-right: 10px;
+}
+
+.session_status {
+    padding: 10px;
+}
+
+.session_header {
+    position: sticky;
+    top: 112px;
+    height: 3em;
+    display: grid;
+    align-items: center;
+    background-color: #222;
+}
+
+.questions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.question {
+    background-color: #333;
+    /* padding: 10px; */
+    margin-bottom: 10px;
+    border-radius: 5px;
+    flex: 1 100%;
+}
+
+.question.hidden {
+    filter: opacity(50%);
+}
+
+.question-text {
+    padding: 1rem;
+}
+
+.question_buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.question-input {
+    display: flex;
+}
+
+.question-input input[type="text"] {
+    margin-right: 5px;
+}
+
+.question-input input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #444;
+    color: white;
+}
+
+.question-input input[type="submit"] {
+    width: auto;
+}
+
+.styled-button {
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    text-align: end;
+    margin: 10px;
+}
+
+.styled-button:hover {
+    box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
+
+.upvote-button {
+    background-color: #c2fbd7;
+    color: green;
+}
+
+.hide-button {
+    background-color: #883971;
+    box-shadow: rgba(187, 44, 185, 0.2) 0 -25px 18px -14px inset, rgba(187, 44, 173, 0.15) 0 1px 2px, rgba(187, 44, 158, 0.15) 0 2px 4px, rgba(187, 44, 161, 0.15) 0 4px 8px, rgba(185, 44, 187, 0.15) 0 8px 16px, rgba(187, 44, 185, 0.15) 0 16px 32px;
+    color: #e2aed3;
+}
+
+.hide-button:hover {
+    box-shadow: rgba(187, 44, 185, 0.35) 0 -25px 18px -14px inset, rgba(187, 44, 173, 0.25) 0 1px 2px, rgba(187, 44, 158, 0.25) 0 2px 4px, rgba(187, 44, 161, 0.25) 0 4px 8px, rgba(185, 44, 187, 0.25) 0 8px 16px, rgba(187, 44, 185, 0.25) 0 16px 32px;
+}
+
+.export-options {
+    justify-content: space-between;
+    display: flex;
+}
+
+.styled-button.destructive {
+    background-color: red;
+    box-shadow: rgba(226, 45, 25, 0.2) 0 -25px 18px -14px inset, rgba(187, 44, 44, 0.15) 0 1px 2px, rgba(187, 44, 44, 0.15) 0 2px 4px, rgba(187, 44, 44, 0.15) 0 4px 8px, rgba(187, 44, 44, 0.15) 0 8px 16px, rgba(187, 46, 44, 0.15) 0 16px 32px;
+    color: #fff;
+}
+
+.styled-button.destructive:hover {
+    box-shadow: rgba(226, 45, 25, 0.35) 0 -25px 18px -14px inset, rgba(187, 44, 44, 0.25) 0 1px 2px, rgba(187, 44, 44, 0.25) 0 2px 4px, rgba(187, 44, 44, 0.25) 0 4px 8px, rgba(187, 44, 44, 0.25) 0 8px 16px, rgba(187, 46, 44, 0.25) 0 16px 32px;
+}
