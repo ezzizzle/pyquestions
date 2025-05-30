@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - github-actions # Set a branch to deploy when pushed
+      - main # Set a branch to deploy when pushed
 
 jobs:
   deploy:
